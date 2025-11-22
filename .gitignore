@@ -10,6 +10,7 @@
 !.yarn/releases
 !.yarn/versions
 
+devops.txt
 # testing
 /coverage
 
@@ -17,9 +18,10 @@
 /.next/
 /out/
 
+text.txt
 # production
 /build
-
+project.txt
 # misc
 .DS_Store
 *.pem
