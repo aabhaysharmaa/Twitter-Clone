@@ -4,8 +4,11 @@ import { useCallback, useState } from "react";
 import LoginModalStore from "../hooks/useloginModal"
 import Input from "../components/Input"
 import Modal from "./Modal";
-import RegisterModal from "./RegisterModel";
+// import RegisterModal from "./RegisterModel";
 import RegisterModalStore from "@/hooks/useRegisterModal";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 
 
 
@@ -19,14 +22,20 @@ const LoginModal = () => {
 	const onSubmit = useCallback(async () => {
 		try {
 			setIsLoading(true)
-			// Sign in logic
+			toast.success("LogIn successful")
+			signIn("credentials", {
+				email,
+				password,
+				redirect: false
+			})
 			loginModal.onClose();
 		} catch (error) {
-			console.log(error.message)
+			console.log((error as Error).message)
+			toast.error((error as Error).message)
 		} finally {
 			setIsLoading(false)
 		}
-	}, [loginModal])
+	}, [loginModal, email, password])
 	const toggleModel = useCallback(() => {
 		if (isLoading) return null;
 		loginModal.onClose();

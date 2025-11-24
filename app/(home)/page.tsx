@@ -4,6 +4,7 @@ import RegisterModal from "@/components/RegisterModel"
 const Home = () => {
   return (
     <>
+    
     <LoginModal/>
     <RegisterModal/>
      <Header label="Home"/>
