@@ -9,26 +9,25 @@ import RegisterModalStore from "@/hooks/useRegisterModal";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { signIn } from "next-auth/react";
-
-
-
+import { useRouter } from "next/navigation";
 const LoginModal = () => {
 	const loginModal = LoginModalStore();
 	const registerModal = RegisterModalStore();
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-
+	// const router = useRouter();
 	const onSubmit = useCallback(async () => {
 		try {
-			setIsLoading(true)
-			toast.success("LogIn successful")
-			signIn("credentials", {
+			setIsLoading(true);
+			await signIn("credentials", {
 				email,
 				password,
 				redirect: false
 			})
 			loginModal.onClose();
+			toast.success("LogIn successful");
+			// router.refresh();
 		} catch (error) {
 			console.log((error as Error).message)
 			toast.error((error as Error).message)

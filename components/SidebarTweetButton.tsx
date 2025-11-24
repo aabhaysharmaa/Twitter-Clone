@@ -5,13 +5,17 @@ import React, { useCallback } from 'react';
 import { FaFeather } from 'react-icons/fa';
 
 import LoginModalStore from '@/hooks/useloginModal';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 const SidebarTweetItem = () => {
+  const { data: currentUser } = useCurrentUser();
   // const router = useRouter();
   const LoginModal = LoginModalStore();
   const onClick = useCallback(() => {
-    LoginModal.onOpen();
-  }, [LoginModal])
+    if (!currentUser) {
+      return LoginModal.onOpen();
+    }
+  }, [LoginModal, currentUser])
   return (
     <div onClick={onClick}>
       <div className="lg:hidden mt-6 h-16 w-14 flex rounded-full items-center justify-center bg-sky-500 hover:bg-sky-500/80 transition cursor-pointer">

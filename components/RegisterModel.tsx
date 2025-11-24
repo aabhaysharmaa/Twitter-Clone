@@ -25,7 +25,7 @@ const RegisterModal = () => {
         email,
         password
       })
-      signIn("credentials", {
+     await signIn("credentials", {
         email,
         password,
         redirect: false
@@ -67,3 +67,4 @@ const RegisterModal = () => {
 }
 
 export default RegisterModal;
+
