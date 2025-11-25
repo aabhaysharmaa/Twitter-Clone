@@ -15,7 +15,6 @@ const RegisterModal = () => {
   const [name, setName] = useState<string>("");
   const [username, setUserName] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true)
@@ -25,7 +24,7 @@ const RegisterModal = () => {
         email,
         password
       })
-     await signIn("credentials", {
+      await signIn("credentials", {
         email,
         password,
         redirect: false

@@ -7,16 +7,15 @@ import Modal from "./Modal";
 // import RegisterModal from "./RegisterModel";
 import RegisterModalStore from "@/hooks/useRegisterModal";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 const LoginModal = () => {
 	const loginModal = LoginModalStore();
 	const registerModal = RegisterModalStore();
+
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
+
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	// const router = useRouter();
 	const onSubmit = useCallback(async () => {
 		try {
 			setIsLoading(true);
@@ -24,10 +23,16 @@ const LoginModal = () => {
 				email,
 				password,
 				redirect: false
-			})
+			}).then((callback) => {
+				if (callback?.error) {
+					toast.error(callback.error)
+				}
+				if (callback?.ok) {
 			loginModal.onClose();
-			toast.success("LogIn successful");
-			// router.refresh();
+					toast.success("Logged In"); 
+				}
+			}
+			);
 		} catch (error) {
 			console.log((error as Error).message)
 			toast.error((error as Error).message)
@@ -42,8 +47,8 @@ const LoginModal = () => {
 	}, [registerModal, loginModal, isLoading])
 	const bodyContent = (
 		<div className="flex flex-col gap-4 ">
-			<Input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} value={email} disabled={isLoading} />
-			<Input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password} disabled={isLoading} />
+			<Input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} value={email ?? ""} disabled={isLoading} />
+			<Input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password ?? ""} disabled={isLoading} />
 		</div>
 	)
 	const footerContent = (

@@ -1,13 +1,15 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import SideBar from "@/components/SideBar";
 import FollowBar from "@/components/followBar";
+import ModalProvider from "@/components/ModalProvider";
 
 export const metadata: Metadata = {
   title: "Twitter",
   description: "twitter Clone",
-  icons : "/x.png"
+  icons: "/x.png"
 }
 
 export default function RootLayout({
@@ -23,6 +25,7 @@ export default function RootLayout({
         <Providers>
           <main className='
 		 h-screen bg-black'>
+            <ModalProvider />
             <div className="container h-full mx-auto xl:px-30  max-w-6xl">
               <div className=" grid grid-cols-4 h-full">
                 <SideBar />

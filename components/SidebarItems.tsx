@@ -31,8 +31,7 @@ const SidebarItems = ({ icon: Icon, href, label, onClick, auth }: SidebarItemsPr
 			router.push(href);
 		}
 	}
-
-
+	
 	return (
 		<div className='flex flex-col lg:items-start  justify-center  ' onClick={handleClick}>
 			<div className="relative rounded-full h-14 w-14 flex items-center justify-center p-4 hover:bg-slate-300/10 cursor-pointer lg:hidden">
