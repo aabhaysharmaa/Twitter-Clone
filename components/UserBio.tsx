@@ -19,7 +19,7 @@ const UserBio = ({ userId }: UserBioProps) => {
 		return format(new Date(fetchedUser.createdAt), "MMMM yyyy")
 	}, [fetchedUser])
 	const editModel = useEditModal();
-	
+
 	return (
 		<div className='border-b border-neutral-800  pb-4 hover:bg-neutral-900/50 transition'>
 			<div className="flex justify-end p-2 mt-2">
@@ -34,6 +34,7 @@ const UserBio = ({ userId }: UserBioProps) => {
 					<p className='text-white text-2xl font-semibold'>
 						{fetchedUser?.name}
 					</p>
+				
 					<p className='text-md text-neutral-500'>
 						@{fetchedUser?.username}
 					</p>

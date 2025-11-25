@@ -1,5 +1,6 @@
 "use client";
 
+import useCurrentUser from '@/hooks/useCurrentUser';
 import { useRouter } from 'next/navigation';
 import React, { useCallback } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
@@ -10,6 +11,7 @@ interface HeaderProps {
 
 const Header = ({ label, showBackArrow }: HeaderProps) => {
 	const router = useRouter();
+	const { data: currentUser } = useCurrentUser();
 	const handelBack = useCallback(() => {
 		router.back()
 	}, [router])
@@ -17,10 +19,10 @@ const Header = ({ label, showBackArrow }: HeaderProps) => {
 	return (
 		<div className='border-b border-neutral-800 p-5'>
 			<div className="flex flew-row items-center gap-2">
-                 {showBackArrow && (
-					<BiArrowBack onClick={handelBack} size={20} className='cursor-pointer hover:opacity-70 transition'  />
-				 )}
-				 <h1 className='text-xl font-semibold' >{label}</h1>
+				{showBackArrow && (
+					<BiArrowBack onClick={handelBack} size={20} className='cursor-pointer hover:opacity-70 transition' />
+				)}
+				<h1 className='text-xl font-semibold' >{currentUser ? "You" : label}  </h1>
 			</div>
 		</div>
 	)

@@ -3,11 +3,13 @@
 import React from 'react';
 import useUsers from '@/hooks/useUsers';
 import Avatar from './Avatar';
+import useCurrentUser from '@/hooks/useCurrentUser';
+import useUser from '@/hooks/useUser';
 const FollowBar = () => {
   const { data: users = [] } = useUsers();
   console.log("Data Users : ", users)
   if (users.length === 0) return null;
-  return ( 
+  return (
     <div className='px-6 py-4 hidden lg:block'>
       <div className="bg-neutral-800 rounded-lg  p-4 lg:w-[250px] max-md:w-[200px]">
         <h2 className='text-xl font-semibold'>Who to follow</h2>

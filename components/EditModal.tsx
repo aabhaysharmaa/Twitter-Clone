@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import Modal from './Modal';
 import Input from './Input';
 import { useRouter } from 'next/navigation';
-
+import ImageUpload from './ImageUpload';
 
 const EditModal = () => {
   const { data: currentUser } = useCurrentUser();
@@ -53,6 +53,8 @@ const EditModal = () => {
 
   const contentBody = (
     <div className="flex flex-col gap-4">
+      <ImageUpload value={profileImage} disabled={isLoading} onChange={(image: string) => setProfileImage(image)} label="Upload profile Image" />
+      <ImageUpload value={coverImage} disabled={isLoading} onChange={(image: string) => setCoverImage(image)} label="Upload Cover Image" />
       <Input onChange={(e) => setName(e.target.value)} value={name} disabled={isLoading} type='text' placeholder='name' />
       <Input onChange={(e) => setUserName(e.target.value)} value={username} disabled={isLoading} type='text' placeholder='username' />
       <Input onChange={(e) => setBio(e.target.value)} value={bio} disabled={isLoading} type='text' placeholder='Bio' />

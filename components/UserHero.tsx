@@ -12,12 +12,12 @@ const UserHero = ({ userId }: UserHeroProps) => {
 		<div>
 			<div className="bg-neutral-700 h-44 relative">
 				{/* {fetchedUser && ( */}
-					<Image
-						src={"/banner.png"}
-						alt="Cover Image"
-						fill
-						style={{ objectFit: 'cover' }}
-					/>
+				<Image
+					src={fetchedUser?.coverImage || "/banner.png"}
+					alt="Cover Image"
+					fill
+					style={{ objectFit: 'cover' }}
+				/>
 				{/* )} */}
 				<div className="px-5 pb-5 absolute -bottom-20 ">
 					<Avatar userId={userId} isLarge hasBorder />
