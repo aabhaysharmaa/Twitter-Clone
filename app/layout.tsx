@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ 
+}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
@@ -32,7 +32,10 @@ export default function RootLayout({
                 <div className="col-span-3 lg:col-span-2 border-x border-neutral-800">
                   {children}
                 </div>
-                <FollowBar />
+                <div className="w-full ">
+                    <FollowBar  fullWith isMobile />
+                </div>
+
               </div>
             </div>
           </main>

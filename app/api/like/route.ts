@@ -31,13 +31,16 @@ export async function POST(req: NextRequest) {
 
 		const existingLikes = post.likeIds ?? []; // fallback to empty array
 
+		const newLikes = existingLikes.includes(currentUser.id)
+			? existingLikes
+			: [...existingLikes, currentUser.id];
 
 		const updateUser = await prisma?.post?.update({
 			where: {
 				id: post.id
 			},
 			data: {
-				likeIds: { set: [...existingLikes, currentUser.id] }
+				likeIds: { set: newLikes }
 			}
 		})
 		return NextResponse.json(updateUser, { status: 200 })

@@ -35,13 +35,14 @@ const Avatar = ({
         rounded-full  transition cursor-pointer relative
         ${isHover && "hover:opacity-80"}
       `}
+      onClick={onClick}
     >
       <Image
         src={data?.profileImage || '/default.jpeg'}
         alt="Avatar"
         fill
+
         className="rounded-full object-cover"
-        onClick={onClick}
         sizes={isLarge ? "128px" : "48px"}
       />
     </div>

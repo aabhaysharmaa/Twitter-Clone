@@ -1,5 +1,6 @@
 "use client";
 
+import CommentFeed from "@/components/CommentFeed";
 import Form from "@/components/Form";
 import Header from "@/components/Header";
 import PostFeed from "@/components/PostFeed";
@@ -13,7 +14,6 @@ const PostView = () => {
   const router = useRouter();
   const { data: fetchedData, isLoading } = usePost(params.id as string)
 
-  // console.log("Fetched UserId : ", fetchedData)
 
   if (isLoading || !fetchedData) {
     return (
@@ -22,7 +22,6 @@ const PostView = () => {
       </div>
     )
   }
-
 
   return (
     <>
@@ -34,6 +33,7 @@ const PostView = () => {
         isComment
         placeholder="Tweet Your reply"
       />
+      <CommentFeed comments={fetchedData?.comments} />
     </>
   )
 };

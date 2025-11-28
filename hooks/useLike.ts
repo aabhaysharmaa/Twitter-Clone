@@ -7,17 +7,17 @@ import LoginModalStore from "./useloginModal";
 import toast from "react-hot-toast";
 import axios from "axios";
 const useLike = (
-	{ postId, userId }: { postId?: string, userId?: string }
+	{ postId, userId, data }: { postId?: string, userId?: string, data: Record<string, any> }
 ) => {
-	const { data: currentUser } = useCurrentUser();
+	const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
 	const { data: fetchedPost, mutate: mutateFetchedPost } = usePost(postId);
-	const { data: fetchedPosts, mutate: mutateFetchedPosts } = usePosts(userId);
+	const { mutate: mutateFetchedPosts } = usePosts(userId);
 	const loginModal = LoginModalStore();
 	const hasLiked = useMemo(() => {
-		const list = fetchedPost?.likeIds || [];
+		const list = data?.likeIds || [];
 		return list.includes(currentUser?.id);
- 
-	}, [fetchedPost?.likeIds, currentUser?.id]);
+	}, [data?.likeIds, currentUser?.id]);
+	console.log("fetchedPost : ", fetchedPost);
 	const toggleLike = useCallback(async () => {
 		if (!currentUser) {
 			return loginModal.onOpen();
@@ -30,6 +30,7 @@ const useLike = (
 				request = () => axios.post("/api/like", { postId });
 			}
 			await request();
+			mutateCurrentUser();
 			mutateFetchedPost();
 			mutateFetchedPosts();
 			toast.success("success");
@@ -37,11 +38,11 @@ const useLike = (
 			toast.error("Something went Wrong!");
 			console.log((error as Error).message)
 		}
-	}, [loginModal, currentUser, hasLiked, postId, mutateFetchedPost, mutateFetchedPosts])
+	}, [loginModal, currentUser, hasLiked, postId, mutateFetchedPost, mutateFetchedPosts, mutateCurrentUser])
 	return {
 		hasLiked,
 		toggleLike,
-		fetchedPost
+
 	}
 
 }

@@ -14,15 +14,12 @@ interface PostItemProps {
 }
 
 const PostItem = ({ userId, data }: PostItemProps) => {
-	const { data: userData, mutate } = usePosts(data?.id)
-	const { hasLiked, toggleLike, fetchedPost } = useLike({ postId: data.id, userId });
-	const currentUser = useCurrentUser();
-	console.log("Content Data", data)
+	const { data: userData, mutate } = usePosts(userId)
+	const { hasLiked, toggleLike } = useLike({ postId: data.id, userId: data.user.id, data });
+
+	const { data: currentUser } = useCurrentUser();
 	const router = useRouter();
-
-
 	const loginModal = LoginModalStore();
-
 	//redirecting to the individual user
 	const goToUser = useCallback((event: any) => {
 		event.stopPropagation();
@@ -42,7 +39,8 @@ const PostItem = ({ userId, data }: PostItemProps) => {
 			return loginModal.onOpen();
 		}
 		toggleLike();
-	}, [toggleLike, currentUser, loginModal]);
+		mutate()
+	}, [toggleLike, currentUser, loginModal , mutate]);
 	const createdAt = useMemo(() => {
 		if (!data?.createdAt) {
 			return null;
@@ -57,7 +55,7 @@ const PostItem = ({ userId, data }: PostItemProps) => {
 					<div className="">
 						<div className="flex flex-row items-center  gap-2">
 							<p onClick={goToUser} className='text-white font-semibold cursor-pointer hover:underline'>{data.user.name}</p>
-							<span onClick={goToUser} className='text-neutral-500 cursor-pointer hover:underline hidden md:block' >@{data.user.username}</span>
+							<span onClick={goToUser} className='text-neutral-500 cursor-pointer hover:underline hidden md:block truncate w-[120px]' >@{data.user.username}</span>
 							<span className='text-neutral-500 text-sm'>{createdAt}</span>
 						</div>
 						<div className="mt-1">{data.content}</div>
@@ -67,8 +65,8 @@ const PostItem = ({ userId, data }: PostItemProps) => {
 								<p className=''>{data.comments?.length || 0}</p>
 							</div>
 							<div onClick={onLike} className="flex  flex-row items-center text-neutral-500 cursor-pointer transition gap-2 hover:text-red-500">
-								{hasLiked ? (<AiFillHeart size={20} />) : (<AiOutlineHeart size={20} />)}
-								<p className=''>{fetchedPost?.likeIds || 0}</p>
+								{hasLiked ? <AiFillHeart size={20} className='text-red-400' /> : <AiOutlineHeart size={20} />}
+								<p className={hasLiked ? "text-red-500" : "text-neutral-400"}  >{data?.likeIds?.length || 0}</p>
 							</div>
 						</div>
 					</div>

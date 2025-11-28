@@ -3,13 +3,13 @@
 import React from 'react';
 import useUsers from '@/hooks/useUsers';
 import Avatar from './Avatar';
-import useUser from '@/hooks/useUser';
-const FollowBar = () => {
+
+const FollowBar = ({ isMobile }: { isMobile?: boolean }) => {
   const { data: users = [] } = useUsers();
   if (users.length === 0) return null;
   return (
-    <div className='px-6 py-4 hidden lg:block'>
-      <div className="bg-neutral-800 rounded-lg  p-4 lg:w-[250px] max-md:w-[200px]">
+    <div className='px-6 py-4 w-full'>
+      <div className={`bg-neutral-800 rounded-lg min-w-[250px] hidden lg:block  p-4  `}>
         <h2 className='text-xl font-semibold'>Who to follow</h2>
         <div className="flex flex-col gap-6 mt-4">
           {users.map((user: Record<string, any>) => (
@@ -17,14 +17,14 @@ const FollowBar = () => {
               <Avatar userId={user.id} isHover />
               <div className="flex flex-col ">
                 <p className='text-white font-semibold'>{user.name}</p>
-                <p className='text-white font-semibold'>@{user.username}</p>
+                <p className={`text-white font-semibold truncate w-[100px] `}>@{user.username}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
     </div>
+
   )
 }
-
 export default FollowBar

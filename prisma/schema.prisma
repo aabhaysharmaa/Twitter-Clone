@@ -27,6 +27,7 @@ model User {
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
   followingIds     String[]        @db.ObjectId
+  followerIds     String[]        @db.ObjectId
   hasNotifications Boolean?
   posts            Post[]
   comments         Comment[]

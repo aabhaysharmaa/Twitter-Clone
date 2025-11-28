@@ -1,12 +1,13 @@
 import useCurrentUser from '@/hooks/useCurrentUser'
 import LoginModalStore from '@/hooks/useloginModal'
-import usePosts from '@/hooks/usePosts'
-import RegisterModalStore from '@/hooks/useRegisterModal'
+import usePosts from '@/hooks/usePosts';
+import RegisterModalStore from '@/hooks/useRegisterModal';
 import axios from 'axios';
 import React, { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 import Button from './Button';
-import Avatar from './Avatar';
+import Avatar from './Avatar' ;
+
 interface FormProps {
   placeholder: string
   isComment?: boolean,
@@ -19,10 +20,11 @@ const Form = ({ placeholder, postId, isComment }: FormProps) => {
   const { mutate: mutatePosts } = usePosts(postId);
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const onSubmit = useCallback(async() => {
+  const onSubmit = useCallback(async () => {
+    const url = isComment ? `/api/comments/${postId}` : "api/posts";
     try {
       setIsLoading(true)
-      await axios.post("/api/posts", { content })
+      await axios.post(url, { content })
       toast.success("Tweet created")
       setContent("")
       mutatePosts()
@@ -32,7 +34,7 @@ const Form = ({ placeholder, postId, isComment }: FormProps) => {
     } finally {
       setIsLoading(false)
     }
-  }, [mutatePosts, content])
+  }, [mutatePosts, content, isComment, postId])
   return (
     <div className='border-b border-neutral-800 px-5 py-2'>
       {currentUser ? (
@@ -53,7 +55,6 @@ const Form = ({ placeholder, postId, isComment }: FormProps) => {
               autoCapitalize="off"
               style={{ overflow: "hidden" }}
             />
-
             <hr className='text-neutral-800 opacity-0 peer-hover:opacity-100 w-full transition' />
             <div className="flex  flex-row items-center justify-end   mt-4 ">
               <Button label='Tweet' disabled={isLoading || !content} onClick={onSubmit} ></Button>

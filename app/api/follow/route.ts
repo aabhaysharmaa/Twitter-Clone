@@ -6,65 +6,47 @@ import { getServerSession } from "next-auth";
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user) {
-      return NextResponse.json(
-        { message: "Not authenticated" },
-        { status: 401 }
-      );
-    }
+    if (!session?.user) return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
 
     const { userId } = await req.json();
-    if (!userId || typeof userId !== "string") {
-      return NextResponse.json({ message: "Invalid UserId" }, { status: 400 });
-    }
+    if (!userId || typeof userId !== "string") return NextResponse.json({ message: "Invalid UserId" }, { status: 400 });
 
-    // target user exists?
-    const targetUser = await prisma.user.findUnique({
-      where: { id: userId },
-    });
+    const [currentUser, targetUser] = await Promise.all([
+      prisma.user.findUnique({ where: { email: session.user.email } }),
+      prisma.user.findUnique({ where: { id: userId } })
+    ]);
 
-    if (!targetUser) {
-      return NextResponse.json({ message: "User not found" }, { status: 404 });
-    }
+    if (!currentUser) return NextResponse.json({ message: "Current user not found" }, { status: 404 });
+    if (!targetUser) return NextResponse.json({ message: "Target user not found" }, { status: 404 });
 
-    // current logged-in user
-    const currentUser = await prisma.user.findUnique({
-      where: { email: session?.user?.email },
-    });
+    const isFollowing = currentUser.followingIds.includes(userId);
 
-    if (!currentUser) {
-      return NextResponse.json(
-        { message: "Current user not found" },
-        { status: 404 }
-      );
-    }
+    const updatedFollowingIds = isFollowing
+      ? currentUser.followingIds.filter(id => id !== userId)
+      : [...currentUser.followingIds, userId];
 
-    let updatedFollowingIds = [...currentUser.followingIds];
+    const updatedFollowerIds = isFollowing
+      ? targetUser.followerIds.filter(id => id !== currentUser.id)
+      : [...targetUser.followerIds, currentUser.id];
 
-    if (updatedFollowingIds.includes(userId)) {
-      // UNFOLLOW
-      updatedFollowingIds = updatedFollowingIds.filter((id) => id !== userId);
-    } else {
-      // FOLLOW
-      updatedFollowingIds.push(userId);
-    }
+    const [updatedCurrentUser, updatedTargetUser] = await prisma.$transaction([
+      prisma.user.update({
+        where: { id: currentUser.id },
+        data: { followingIds: updatedFollowingIds },
+      }),
+      prisma.user.update({
+        where: { id: targetUser.id },
+        data: { followerIds: updatedFollowerIds },
+      }),
+    ]);
 
-    const updatedUser = await prisma.user.update({
-      where: { id: currentUser.id },
-      data: {
-        followingIds: updatedFollowingIds,
-      },
-    });
-
-    return NextResponse.json({ updatedUser }, { status: 200 });
+    return NextResponse.json({ updatedCurrentUser, updatedTargetUser }, { status: 200 });
   } catch (error) {
     console.log("FOLLOW_ERROR:", (error as Error).message);
-    return NextResponse.json(
-      { message: (error as Error).message },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: (error as Error).message }, { status: 500 });
   }
 }
+
 export async function DELETE(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);

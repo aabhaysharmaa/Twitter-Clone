@@ -13,7 +13,7 @@ interface UserBioProps {
 const UserBio = ({ userId }: UserBioProps) => {
 	const { data: currentUser } = useCurrentUser();
 	const { data: fetchedUser } = useUser(userId);
-	const { mutate } = useCurrentUser();
+	console.log("fetched follow", fetchedUser)
 	const createdAt = useMemo(() => {
 		if (!fetchedUser?.createdAt) {
 			return null;
@@ -55,7 +55,7 @@ const UserBio = ({ userId }: UserBioProps) => {
 						<p className='text-neutral-500'>Following</p>
 					</div>
 					<div className="flex  gap-1">
-						<p className=''>{fetchedUser?.followersCount || 0}</p>
+						<p className=''>{fetchedUser?.followerIds.length || 0}</p>
 						<p className='text-neutral-500'>Followers</p>
 					</div>
 				</div>
@@ -64,25 +64,7 @@ const UserBio = ({ userId }: UserBioProps) => {
 	)
 }
 
-export default UserBio
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default UserBio;
 
 
 
