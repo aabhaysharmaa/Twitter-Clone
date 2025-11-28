@@ -8,13 +8,13 @@ import Modal from "./Modal";
 import RegisterModalStore from "@/hooks/useRegisterModal";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import useCurrentUser from "@/hooks/useCurrentUser";
 const LoginModal = () => {
 	const loginModal = LoginModalStore();
 	const registerModal = RegisterModalStore();
-
+	const { mutate } = useCurrentUser();
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
-
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const onSubmit = useCallback(async () => {
 		try {
@@ -28,8 +28,9 @@ const LoginModal = () => {
 					toast.error(callback.error)
 				}
 				if (callback?.ok) {
-			loginModal.onClose();
-					toast.success("Logged In"); 
+					loginModal.onClose();
+					toast.success("Logged In");
+					mutate();
 				}
 			}
 			);
@@ -39,7 +40,7 @@ const LoginModal = () => {
 		} finally {
 			setIsLoading(false)
 		}
-	}, [loginModal, email, password])
+	}, [loginModal, email, password, mutate])
 	const toggleModel = useCallback(() => {
 		if (isLoading) return null;
 		loginModal.onClose();

@@ -9,7 +9,6 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import { signOut } from 'next-auth/react';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 const SideBar = () => {
-
 	const { data: currentUser } = useCurrentUser();
 	const items = [
 		{

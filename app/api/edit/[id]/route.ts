@@ -12,7 +12,7 @@ export async function PATCH(
 
     const updatedPost = await prisma.user.update({
       where: {
-        id: id,
+        id
       },
       data: {
         name, username, coverImage, profileImage, bio

@@ -7,6 +7,8 @@ import Modal from "./Modal";
 import RegisterModalStore from "@/hooks/useRegisterModal";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
+import useCurrentUser from "@/hooks/useCurrentUser";
+
 const RegisterModal = () => {
   const loginModal = LoginModalStore();
   const registerModal = RegisterModalStore();
@@ -15,6 +17,7 @@ const RegisterModal = () => {
   const [name, setName] = useState<string>("");
   const [username, setUserName] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { mutate } = useCurrentUser();
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true)
@@ -29,15 +32,17 @@ const RegisterModal = () => {
         password,
         redirect: false
       })
+
       toast.success("Registered successful");
+      mutate()
       registerModal.onClose();
     } catch (error) {
-      console.log(error.message)
+      console.log((error as Error).message)
       toast.error("Something went Wrong!")
     } finally {
       setIsLoading(false)
     }
-  }, [registerModal, email, password, username, name]);
+  }, [registerModal, email, password, username, name, mutate]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4 ">

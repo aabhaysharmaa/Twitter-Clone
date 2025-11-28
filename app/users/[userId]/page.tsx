@@ -7,11 +7,13 @@ import { ClipLoader } from 'react-spinners'
 import React from 'react'
 import UserHero from '@/components/UserHero';
 import UserBio from '@/components/UserBio';
+import PostFeed from '@/components/PostFeed';
+
 
 const UserView = () => {
-	const params = useParams();
-	const userId = params.userId;
-	const { data: fetchedUser, isLoading } = useUser(userId);
+	const params = useParams(); // returns { id: '123' }
+	const postId = params.userId;
+	const { data: fetchedUser, isLoading } = useUser(postId as string);
 	if (isLoading || !fetchedUser) {
 		return <div className='h-full flex items-center justify-center'>
 			<ClipLoader size={80} color='lightblue' />
@@ -20,8 +22,9 @@ const UserView = () => {
 	return (
 		<>
 			<Header label={fetchedUser?.name} showBackArrow />
-			<UserHero userId={userId as string} />
-			<UserBio userId={userId as string} />
+			<UserHero userId={postId as string} />
+			<UserBio userId={postId as string} />
+			<PostFeed userId={postId as string}/>
 		</>
 
 	)

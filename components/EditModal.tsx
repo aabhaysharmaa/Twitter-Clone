@@ -28,6 +28,7 @@ const EditModal = () => {
   }, [currentUser])
 
   const router = useRouter();
+  const { mutate: mutateCurrentUser } = useCurrentUser();
   const [isLoading, setIsLoading] = useState(false);
   const onSubmit = useCallback(async () => {
     try {
@@ -40,6 +41,7 @@ const EditModal = () => {
         coverImage
       });
       mutateFetchedUser();
+      mutateCurrentUser()
       toast.success("Updated");
       editModal.onClose();
       router.push(`/users/${currentUser?.id}`);
@@ -49,7 +51,7 @@ const EditModal = () => {
     } finally {
       setIsLoading(false)
     }
-  }, [username, name, bio, profileImage, coverImage, editModal, currentUser?.id, mutateFetchedUser, router]);
+  }, [username, name, bio, profileImage, coverImage, editModal, currentUser?.id, mutateFetchedUser, router, mutateCurrentUser]);
 
   const contentBody = (
     <div className="flex flex-col gap-4">
@@ -63,7 +65,7 @@ const EditModal = () => {
   )
 
   return (
-    <Modal onSubmit={onSubmit} isOpen={editModal.isOpen} body={contentBody} disabled={isLoading} actionLabel='Save' onClose={editModal.onClose} title='Edit your profile' />
+    <Modal onSubmit={onSubmit} isOpen={editModal.isOpen} body={contentBody} isLoading={isLoading} disabled={isLoading} actionLabel='Save'  onClose={editModal.onClose} title='Edit your profile' />
   )
 }
 

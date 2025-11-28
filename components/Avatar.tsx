@@ -7,16 +7,18 @@ interface AvatarProps {
   userId?: string;
   isLarge?: boolean;
   hasBorder?: boolean;
+  isHover?: boolean
 }
 
 const Avatar = ({
   userId,
   isLarge,
-  hasBorder
+  hasBorder,
+  isHover
 }: AvatarProps) => {
   const router = useRouter();
-  const { data } = useUser(userId);
 
+  const { data } = useUser(userId);
   const onClick = useCallback(
     (e: React.MouseEvent<HTMLImageElement>) => {
       e.stopPropagation();
@@ -25,13 +27,13 @@ const Avatar = ({
     },
     [router, userId]
   );
-
   return (
     <div
       className={`
         ${hasBorder ? 'border-4 border-black' : ''}
         ${isLarge ? 'h-32 w-32' : 'h-12 w-12'}
-        rounded-full hover:opacity-80 transition cursor-pointer relative
+        rounded-full  transition cursor-pointer relative
+        ${isHover && "hover:opacity-80"}
       `}
     >
       <Image

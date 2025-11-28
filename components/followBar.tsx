@@ -3,11 +3,9 @@
 import React from 'react';
 import useUsers from '@/hooks/useUsers';
 import Avatar from './Avatar';
-import useCurrentUser from '@/hooks/useCurrentUser';
 import useUser from '@/hooks/useUser';
 const FollowBar = () => {
   const { data: users = [] } = useUsers();
-  console.log("Data Users : ", users)
   if (users.length === 0) return null;
   return (
     <div className='px-6 py-4 hidden lg:block'>
@@ -16,7 +14,7 @@ const FollowBar = () => {
         <div className="flex flex-col gap-6 mt-4">
           {users.map((user: Record<string, any>) => (
             <div className="flex flex-row gap-4" key={user.id}>
-              <Avatar userId={user.id} />
+              <Avatar userId={user.id} isHover />
               <div className="flex flex-col ">
                 <p className='text-white font-semibold'>{user.name}</p>
                 <p className='text-white font-semibold'>@{user.username}</p>

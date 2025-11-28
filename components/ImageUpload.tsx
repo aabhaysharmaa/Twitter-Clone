@@ -1,13 +1,14 @@
 "use client";
 import Image from "next/image";
 import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone" ; 
+import { useDropzone } from "react-dropzone";
 interface ImageUploadProps {
   value?: string;
   disabled?: boolean;
   onChange: (image: string) => void;
   label?: string;
 }
+
 
 const ImageUpload = ({
   value,
@@ -16,7 +17,6 @@ const ImageUpload = ({
   label
 }: ImageUploadProps) => {
   const [base64, setBase64] = useState<string | undefined>(value);
-
   const handleChange = useCallback(
     (base64: string) => {
       onChange(base64);

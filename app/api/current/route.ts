@@ -1,12 +1,13 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import prisma from "@/libs/prismaDB";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
 
 export async function GET() {
   try {
     const session = await getServerSession(authOptions);
-
+    console.log("Session : ", session)
     if (!session?.user?.email) {
       return NextResponse.json(null, { status: 200 });
     }

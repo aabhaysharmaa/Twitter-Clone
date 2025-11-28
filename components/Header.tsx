@@ -22,7 +22,7 @@ const Header = ({ label, showBackArrow }: HeaderProps) => {
 				{showBackArrow && (
 					<BiArrowBack onClick={handelBack} size={20} className='cursor-pointer hover:opacity-70 transition' />
 				)}
-				<h1 className='text-xl font-semibold' >{currentUser ? "You" : label}  </h1>
+				<h1 className='text-xl font-semibold' >{ label}  </h1>
 			</div>
 		</div>
 	)

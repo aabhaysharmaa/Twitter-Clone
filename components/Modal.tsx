@@ -10,7 +10,8 @@ interface ModalProps {
 	body?: ReactElement;
 	footer?: ReactElement;
 	title?: string
-	actionLabel: string
+	actionLabel: string,
+	isLoading?: boolean
 }
 
 const Modal = ({
@@ -21,6 +22,7 @@ const Modal = ({
 	footer,
 	disabled,
 	title,
+	isLoading,
 	actionLabel
 
 }: ModalProps) => {
@@ -54,7 +56,7 @@ const Modal = ({
 					</div>
 					{/* Footer */}
 					<div className="flex flex-col gap-2 p-10">
-						<Button label={actionLabel} secondary fullWith disabled={disabled} large onClick={handleSubmit} />
+						<Button label={actionLabel} secondary fullWith disabled={disabled} isLoading={isLoading} large onClick={handleSubmit} />
 					</div>
 					{footer}
 				</div>
