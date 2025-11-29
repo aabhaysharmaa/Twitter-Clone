@@ -1,20 +1,15 @@
 "use client";
-
 import CommentFeed from "@/components/CommentFeed";
 import Form from "@/components/Form";
 import Header from "@/components/Header";
 import PostFeed from "@/components/PostFeed";
 import usePost from "@/hooks/usePost";
-import { useParams, useRouter } from "next/navigation";
-import React from "react";
+import useUser from "@/hooks/useUser";
+import { useParams } from "next/navigation";
 import { ClipLoader } from "react-spinners";
-
 const PostView = () => {
   const params = useParams();
-  const router = useRouter();
-  const { data: fetchedData, isLoading } = usePost(params.id as string)
-
-
+  const { data: fetchedData, isLoading } = useUser(params.id as string);
   if (isLoading || !fetchedData) {
     return (
       <div className="flex justify-center  items-center h-full" >

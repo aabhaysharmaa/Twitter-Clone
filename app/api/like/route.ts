@@ -25,6 +25,31 @@ export async function POST(req: NextRequest) {
 				id: postId
 			}
 		})
+			try {
+			// const post = await prisma?.post?.findUnique({
+			// 	where: {
+			// 		id: postId
+			// 	}
+			// })
+
+			if (post?.userId) {
+				await prisma.notifications.create({
+					data: {
+						body: "Some one Liked Your Tweet",
+						userId: post.userId
+					}
+				})
+				await prisma.user.update({
+					where: {
+						id: post.userId
+					}, data: {
+						hasNotifications: true
+					}
+				})
+			}
+		} catch (error) {
+			console.log((error as Error).message);
+		}
 		if (!post) {
 			return NextResponse.json({ message: "post not found" }, { status: 404 })
 		}
@@ -37,12 +62,14 @@ export async function POST(req: NextRequest) {
 
 		const updateUser = await prisma?.post?.update({
 			where: {
-				id: post.id
+				id: postId
 			},
 			data: {
 				likeIds: { set: newLikes }
 			}
 		})
+
+
 		return NextResponse.json(updateUser, { status: 200 })
 
 

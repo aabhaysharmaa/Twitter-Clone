@@ -26,6 +26,9 @@ export async function GET(req: Request, context: { params?: Promise<{ userId?: s
 
     const user = await prisma.user.findUnique({
       where: { id: userId },
+      include: {
+        comments: { include: { user: true } }
+      }
     });
 
     if (!user) {

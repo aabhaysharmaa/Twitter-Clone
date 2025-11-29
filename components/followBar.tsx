@@ -4,7 +4,7 @@ import React from 'react';
 import useUsers from '@/hooks/useUsers';
 import Avatar from './Avatar';
 
-const FollowBar = ({ isMobile }: { isMobile?: boolean }) => {
+const FollowBar = () => {
   const { data: users = [] } = useUsers();
   if (users.length === 0) return null;
   return (

@@ -1,3 +1,6 @@
+"use client"
+
+
 import useSWR from "swr";
 import fetcher from "@/libs/fetcher";
 const usePosts = (userId?: string) => {
@@ -6,4 +9,4 @@ const usePosts = (userId?: string) => {
 	return { data, isLoading, mutate, error }
 }
 
-export default usePosts 
+export default usePosts

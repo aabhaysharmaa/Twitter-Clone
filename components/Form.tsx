@@ -1,13 +1,12 @@
-import useCurrentUser from '@/hooks/useCurrentUser'
-import LoginModalStore from '@/hooks/useloginModal'
+import useCurrentUser from '@/hooks/useCurrentUser';
+import LoginModalStore from '@/hooks/useloginModal';
 import usePosts from '@/hooks/usePosts';
 import RegisterModalStore from '@/hooks/useRegisterModal';
 import axios from 'axios';
 import React, { useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 import Button from './Button';
-import Avatar from './Avatar' ;
-
+import Avatar from './Avatar';
 interface FormProps {
   placeholder: string
   isComment?: boolean,
@@ -76,5 +75,3 @@ const Form = ({ placeholder, postId, isComment }: FormProps) => {
 }
 
 export default Form
-
-

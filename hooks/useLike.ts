@@ -10,14 +10,13 @@ const useLike = (
 	{ postId, userId, data }: { postId?: string, userId?: string, data: Record<string, any> }
 ) => {
 	const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
-	const { data: fetchedPost, mutate: mutateFetchedPost } = usePost(postId);
+	const {  mutate: mutateFetchedPost } = usePost(postId);
 	const { mutate: mutateFetchedPosts } = usePosts(userId);
 	const loginModal = LoginModalStore();
 	const hasLiked = useMemo(() => {
 		const list = data?.likeIds || [];
 		return list.includes(currentUser?.id);
 	}, [data?.likeIds, currentUser?.id]);
-	console.log("fetchedPost : ", fetchedPost);
 	const toggleLike = useCallback(async () => {
 		if (!currentUser) {
 			return loginModal.onOpen();

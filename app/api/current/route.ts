@@ -7,7 +7,6 @@ import { getToken } from "next-auth/jwt";
 export async function GET() {
   try {
     const session = await getServerSession(authOptions);
-    console.log("Session : ", session)
     if (!session?.user?.email) {
       return NextResponse.json(null, { status: 200 });
     }

@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/libs/prismaDB";
-import { authOptions } from "../auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 
-export default async function POST(req: NextRequest, { params }: { params: { postId: string } }) {
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/route";
+
+export async function POST(req: NextRequest, { params }: { params: { postId: string } }) {
 	try {
 		const session = await getServerSession(authOptions);
 		if (!session) {
@@ -25,14 +26,14 @@ export default async function POST(req: NextRequest, { params }: { params: { pos
 		}
 		const comment = await prisma?.comment.create({
 			data: {
-				body : content,
+				content,
 				userId: currentUser?.id,
 				postId
 			}
 		});
-		return NextResponse.json(comment, { status: 201 })
+		return NextResponse.json(comment, { status: 201 });
 	} catch (error) {
 		console.log("Error in Comments Posts : ", (error as Error).message);
-		return NextResponse.json({ message: (error as Error).message }, { status: 400 });
+		return NextResponse.json({ message: (error as Error).message },{ status: 400 });
 	}
 }

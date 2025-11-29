@@ -1,5 +1,6 @@
-import clsx from "clsx";
+"use client";
 
+import clsx from "clsx";
 interface ButtonProps {
 	label: string,
 	secondary?: boolean,

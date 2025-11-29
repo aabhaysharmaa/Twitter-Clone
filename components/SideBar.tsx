@@ -1,7 +1,7 @@
 "use client";
 
 import { BsBellFill, BsHouseFill } from 'react-icons/bs';
-import { FaFolderPlus, FaUser, FaUserFriends } from 'react-icons/fa';
+import { FaUser, FaUserFriends } from 'react-icons/fa';
 import SidebarLogo from './SidebarLogo';
 import SidebarItems from './SidebarItems';
 import { BiLogOut } from 'react-icons/bi';
@@ -10,6 +10,7 @@ import useCurrentUser from '@/hooks/useCurrentUser';
 import { signOut } from 'next-auth/react';
 const SideBar = () => {
 	const { data: currentUser } = useCurrentUser();
+	console.log("Has Notifications : ", currentUser?.hasNotifications);
 	const items = [
 		{
 			label: "Home",
@@ -21,22 +22,16 @@ const SideBar = () => {
 			label: "Notifications",
 			href: "/notifications",
 			icon: BsBellFill,
-			auth: true
+			auth: true,
+			alert: currentUser?.hasNotifications
 		},
 		{
 			label: "Profile",
 			href: `/profile/${currentUser?.id}`,
 			icon: FaUser,
 			auth: true
-		},
-		{
-			label: "follow",
-			href: "/follow",
-			icon: FaUserFriends,
-			auth: true
 		}
 	];
-
 	return (
 		<div className=' col-span-1 h-full pr-4 md:pr-6'>
 			<div className="flex flex-col  items-end">
@@ -49,12 +44,10 @@ const SideBar = () => {
 							label={item.label}
 							icon={item.icon}
 							auth={item.auth}
-						// follow={mobileFollow}
+							alert={item.alert}
+
 						/>
 					))}
-					<div className="">
-
-					</div>
 					{currentUser &&
 						<SidebarItems icon={BiLogOut} href='/api/register' onClick={() => signOut()} label='Logout' />}
 					<SidebarTweetItem />

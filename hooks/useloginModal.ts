@@ -1,4 +1,7 @@
+"use client"
+
 import { create } from "zustand";
+
 
 interface LoginModalStoreProps {
 	isOpen: boolean;
