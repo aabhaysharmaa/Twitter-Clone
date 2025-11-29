@@ -1,8 +1,21 @@
 import React from 'react';
 import CommentItem from './CommentItem';
-interface CommentFeedProps {
-  comments?: Record<string, any>[]
+
+type Comment = {
+  id: string;
+  content: string;
+  createdAt: Date;
+  userId: string;
+  postId: string;
+  user?: {
+    id: string;
+    name: string;
+    username: string;
+  };
+};interface CommentFeedProps {
+  comments?: Comment[]
 }
+
 
 const CommentFeed = ({ comments }: CommentFeedProps) => {
   return (
@@ -12,5 +25,5 @@ const CommentFeed = ({ comments }: CommentFeedProps) => {
       ))}
     </>
   )
-} 
+}
 export default CommentFeed;

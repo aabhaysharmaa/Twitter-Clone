@@ -1,6 +1,6 @@
 "use client";
 
-import useCurrentUser from '@/hooks/useCurrentUser';
+
 import { useRouter } from 'next/navigation';
 import React, { useCallback } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
@@ -11,7 +11,6 @@ interface HeaderProps {
 
 const Header = ({ label, showBackArrow }: HeaderProps) => {
 	const router = useRouter();
-	const { data: currentUser } = useCurrentUser();
 	const handelBack = useCallback(() => {
 		router.back()
 	}, [router]);

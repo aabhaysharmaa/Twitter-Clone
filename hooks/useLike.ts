@@ -7,7 +7,7 @@ import LoginModalStore from "./useloginModal";
 import toast from "react-hot-toast";
 import axios from "axios";
 const useLike = (
-	{ postId, userId, data }: { postId?: string, userId?: string, data: Record<string, any> }
+	{ postId, userId, data }: { postId?: string, userId?: string, data }
 ) => {
 	const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
 	const {  mutate: mutateFetchedPost } = usePost(postId);

@@ -1,64 +1,56 @@
-# Project Overview
+# Twitter Clone 
 
-We are going to learn and implement the following core functionalities:
+A modern full-stack social media application built with **Next.js**, **Prisma ORM**, and **MongoDB**, deployed on **Vercel**. This project demonstrates core social features, responsive design, and relational database modeling.
 
-## 🔐 Authentication System
+## Features
 
-* Secure user registration and login
-* Password hashing and session management
-* Protecting routes and user data
+### Authentication System
+- User registration and login
+- Secure password storage
+- Session management
 
-## 🔔 Notification System
+### Notification System
+- Real-time and asynchronous notifications
+- Alerts for likes, comments, and new followers
 
-* Real-time or on-demand notifications
-* User-specific alerts for follows, likes, and comments
+### Image Upload
+- Upload images using Base64 encoding
+- Stored and displayed in user posts
 
-## 🖼️ Image Upload (Base64)
+### Database & ORM
+- **Prisma ORM** for database modeling
+- **MongoDB** as the primary database
+- One-to-Many relationship: Users → Posts
+- Many-to-Many relationship: Posts ↔ Comments
 
-* Upload and handle images as Base64 strings
-* Efficient storage and retrieval
+### Social Features
+- Follow/unfollow users
+- Comment and reply on posts
+- Like/unlike posts
 
-## 🗄️ Prisma ORM with MongoDB
+### Frontend
+- Fully responsive layout using modern CSS techniques
+- Clean and user-friendly UI
 
-* Database schema management
-* Type-safe queries using Prisma
-* MongoDB integration for scalable document storage
+### Deployment
+- Live on **Vercel**
+- Continuous deployment from GitHub
 
-## 📱 Responsive Layout
+## Tech Stack
+- **Frontend:** Next.js, React, Tailwind CSS (or your preferred styling)
+- **Backend:** Next.js API Routes, Prisma ORM
+- **Database:** MongoDB
+- **Deployment:** Vercel
 
-* Mobile-first UI
-* Fully responsive design across all screen sizes
+## Getting Started
 
-## 1️⃣➡️📄 One-to-Many Relations (User → Posts)
+### Prerequisites
+- Node.js >= 18
+- npm or yarn
+- MongoDB connection URI
 
-* A single user can create many posts
-* Schema and queries to support this relationship
-
-## 🔁 Many-to-Many Relations (Post ↔ Comments)
-
-* Posts can have multiple comments
-* Comments can relate to multiple entities
-
-## ➕ Following Functionality
-
-* Follow / unfollow users
-* Relationship tracking using a relational schema
-
-## 💬 Comments & Replies
-
-* Nested commenting system
-* Support for threaded replies
-
-## ❤️ Likes Functionality
-
-* Like / unlike posts and comments
-* Track user interactions efficiently
-
-## 🚀 Vercel Deployment
-
-* Deploying the application on Vercel
-* Environment variables & build optimization
-
----
-
-This README will help guide the development flow and serve as a reference for all implemented functionalities.
+### Installation
+```bash
+git clone https://github.com/your-username/social-media-clone.git
+cd social-media-clone
+npm install

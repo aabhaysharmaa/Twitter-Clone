@@ -1,9 +1,14 @@
 "use client";
 
 import Avatar from '@/components/Avatar';
-import FollowBar from '@/components/followBar'
 import useUsers from '@/hooks/useUsers';
 import React from 'react'
+
+type User = {
+  id: string;
+  name: string;
+  username?: string; // optional
+};
 
 const Follow = () => {
 	 const { data: users = [] } = useUsers();
@@ -14,7 +19,7 @@ const Follow = () => {
       <div className={`bg-neutral-800 rounded-lg min-w-[250px] lg:hidden  block  p-4  `}>
         <h2 className='text-xl font-semibold'>Who to follow</h2>
         <div className="flex flex-col gap-6 mt-4">
-          {users.map((user: Record<string, any>) => (
+          {users.map((user: User) => (
             <div className="flex flex-row gap-4" key={user.id}>
               <Avatar userId={user.id} isHover />
               <div className="flex flex-col ">

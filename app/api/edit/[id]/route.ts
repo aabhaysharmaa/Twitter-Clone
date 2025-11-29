@@ -6,6 +6,7 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
+      //@ts-expect-error
     const {id} = await params
     const body = await request.json();
     const { name, username, coverImage, profileImage, bio } = body;

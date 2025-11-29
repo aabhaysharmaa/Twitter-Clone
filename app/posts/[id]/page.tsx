@@ -3,7 +3,6 @@ import CommentFeed from "@/components/CommentFeed";
 import Form from "@/components/Form";
 import Header from "@/components/Header";
 import PostFeed from "@/components/PostFeed";
-import usePost from "@/hooks/usePost";
 import useUser from "@/hooks/useUser";
 import { useParams } from "next/navigation";
 import { ClipLoader } from "react-spinners";

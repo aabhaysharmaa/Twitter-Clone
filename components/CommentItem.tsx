@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { formatDistanceToNowStrict } from 'date-fns';
-import { useRouter } from 'next/navigation'
-import React, { useCallback, useMemo } from 'react'
+
 import Avatar from './Avatar';
-import { AiOutlineMessage } from 'react-icons/ai';
-import useLike from '@/hooks/useLike';
+import { useMemo } from 'react';
+
 
 
 interface CommentItemProps {
@@ -13,12 +12,7 @@ interface CommentItemProps {
 
 
 const CommentItem = ({ data }: CommentItemProps) => {
-	const router = useRouter();
-	const { hasLiked, toggleLike } = useLike({ postId: data?.id, userId: data?.user.id, data });
-	const goToUser = useCallback((event: any) => {
-		event.stopPropagation();
-		router.push(`/api/users/${data?.user.id}`)
-	}, [router, data?.user.id]);
+
 
 	const createdAt = useMemo(() => {
 		if (!data?.createdAt) {

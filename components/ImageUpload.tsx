@@ -1,7 +1,9 @@
 "use client";
+
 import Image from "next/image";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+
 interface ImageUploadProps {
   value?: string;
   disabled?: boolean;
@@ -9,14 +11,14 @@ interface ImageUploadProps {
   label?: string;
 }
 
-
 const ImageUpload = ({
   value,
   disabled,
   onChange,
-  label
+  label,
 }: ImageUploadProps) => {
   const [base64, setBase64] = useState<string | undefined>(value);
+
   const handleChange = useCallback(
     (base64: string) => {
       onChange(base64);
@@ -28,10 +30,15 @@ const ImageUpload = ({
     (files: File[]) => {
       const file = files[0];
       const reader = new FileReader();
-      reader.onload = (event: any) => {
-        setBase64(event.target.result);
-        handleChange(event.target.result);
+
+      reader.onload = (event: ProgressEvent<FileReader>) => {
+        const result = event.target?.result;
+        if (typeof result === "string") {
+          setBase64(result);
+          handleChange(result);
+        }
       };
+
       reader.readAsDataURL(file);
     },
     [handleChange]
@@ -43,21 +50,19 @@ const ImageUpload = ({
     disabled,
     accept: {
       "image/jpeg": [],
-      "image/png": []
-    }
+      "image/png": [],
+    },
   });
 
   return (
     <div
       {...getRootProps({
         className:
-          "w-full p-4 text-white border-2 border-dotted rounded-md border-neutral-500 cursor-pointer"
+          "w-full p-4 text-white border-2 border-dotted rounded-md border-neutral-500 cursor-pointer",
       })}
     >
-      {/* Dropzone input */}
       <input {...getInputProps()} />
 
-      {/* Preview or label */}
       {base64 ? (
         <div className="flex items-center justify-center" key={base64}>
           <Image

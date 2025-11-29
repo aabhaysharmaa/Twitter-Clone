@@ -1,11 +1,8 @@
 import prisma from "@/libs/prismaDB";
-
 import { NextResponse } from "next/server";
-
-
-
 export async function GET(req: Request, context: { params?: Promise<{ userId?: string }> }) {
   try {
+    //@ts-expect-error
     const params = await context.params; // unwrap the Promise
     const userId =
       params?.userId ??

@@ -6,7 +6,7 @@ import { IconType } from 'react-icons';
 import LoginModalStore from '@/hooks/useloginModal';
 
 import { BsDot } from 'react-icons/bs';
-import { FaUserFriends } from 'react-icons/fa';
+
 interface SidebarItemsProps {
 	icon: IconType,
 	href: string,

@@ -11,7 +11,7 @@ const PostFeed = ({ userId }: PostFeedProps) => {
 	console.log("Poss Array : ", posts)
 	return (
 		<>
-			{posts.map((post: Record<string, any>) => (
+			{posts.map((post) => (
 				<PostItem key={post.id} userId={userId as string} data={post} />
 			))}
 		</>

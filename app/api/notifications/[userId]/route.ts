@@ -8,6 +8,7 @@ import prisma from "@/libs/prismaDB";
 
 export  async function GET(req: NextRequest,{ params }: { params: { userId: string } }) {
 	try {
+		  //@ts-expect-error
 		const { userId } = await params;
 		if (!userId || typeof userId !== "string") {
 			return NextResponse.json({ message: "Invalid userID" }, { status: 400 })

@@ -1,7 +1,7 @@
 "use client";
 
 import { BsBellFill, BsHouseFill } from 'react-icons/bs';
-import { FaUser, FaUserFriends } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 import SidebarLogo from './SidebarLogo';
 import SidebarItems from './SidebarItems';
 import { BiLogOut } from 'react-icons/bi';

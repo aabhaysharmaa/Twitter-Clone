@@ -34,8 +34,9 @@ const useFollow = (userId: string) => {
 			if (isFollowing) return toast.success("unfollowed")
 
 
-		} catch (error) {
+		} catch (error : unknown) {
 			toast.error("Something went Wrong!")
+			console.log((error as Error).message)
 		}
 	}, [currentUser, isFollowing, userId, mutateCurrentUser, mutateFetchedUser, loginModal]);
 	return {
