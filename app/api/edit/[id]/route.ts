@@ -1,12 +1,16 @@
 import prisma from "@/libs/prismaDB";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+type IdParams = { id: string } | Promise<{ id: string }>;
+
+export async function PATCH(request: NextRequest, context: { params: IdParams }) {
   try {
-    const {id} = await params
+    const resolved = await context.params;
+    const id = resolved?.id;
+    if (!id || typeof id !== 'string') {
+      return NextResponse.json({ message: 'Invalid id' }, { status: 400 });
+    }
+
     const body = await request.json();
     const { name, username, coverImage, profileImage, bio } = body;
 

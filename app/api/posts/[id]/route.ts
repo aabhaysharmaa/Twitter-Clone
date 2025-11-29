@@ -1,12 +1,8 @@
 import prisma from "@/libs/prismaDB";
 import { NextResponse } from "next/server";
-interface Params {
-  params: {
-    id: string;
-  }
-}
 
-export async function GET(req: Request, { params }: Params) {
+type IdParams = { id: string } | Promise<{ id: string }>;
+export async function GET(req: Request, { params }: { params: IdParams }) {
   const { id } = await params;
   console.log("ID : ", id)
   if (!id || typeof id !== "string") {
