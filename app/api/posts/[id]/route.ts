@@ -7,7 +7,6 @@ interface Params {
 }
 
 export async function GET(req: Request, { params }: Params) {
-  //@ts-expect-error
   const { id } = await params;
   console.log("ID : ", id)
   if (!id || typeof id !== "string") {
