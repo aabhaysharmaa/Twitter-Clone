@@ -6,13 +6,17 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../app/generated/prisma"
 }
 
 datasource db {
   provider = "mongodb"
-  // url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
+
+
+
+
 model User {
   id               String          @id @default(auto()) @map("_id") @db.ObjectId
   name             String?
@@ -27,8 +31,8 @@ model User {
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
   followingIds     String[]        @db.ObjectId
-  followerIds     String[]        @db.ObjectId
-hasNotifications   Boolean?
+  followerIds      String[]        @db.ObjectId
+  hasNotifications Boolean?
   posts            Post[]
   comments         Comment[]
   notifications    Notifications[]
@@ -47,7 +51,7 @@ model Post {
 
 model Comment {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  content      String
+  content   String
   createdAt DateTime @default(now())
   postId    String   @db.ObjectId
   userId    String   @db.ObjectId
