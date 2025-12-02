@@ -38,7 +38,7 @@ export async function POST(req: NextRequest, context: { params: ParamsLike }) {
     // use `body` field if your Prisma model expects it (adjust if model uses different name)
     const comment = await prisma.comment.create({
       data: {
-        body: content,
+        content,
         userId: currentUser.id,
         postId
       }
