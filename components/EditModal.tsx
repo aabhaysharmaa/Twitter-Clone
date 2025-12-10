@@ -9,7 +9,6 @@ import ImageUpload from "./imageUpload";
 import axios from "axios";
 import useUser from "@/hooks/useUser";
 import toast from "react-hot-toast";
-
 const EditModal = () => {
   const [name, setName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -20,19 +19,19 @@ const EditModal = () => {
 
   const editModal = useEditModal();
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
-  const { mutate: mutateUser } = useUser(currentUser?.id);
+  const { data: fetchedUser, mutate: mutateUser } = useUser(currentUser?.id);
   useEffect(() => {
-    setCoverImage(currentUser?.coverImage || "")
-    setProfilePic(currentUser?.profileImage || "")
-    setName(currentUser?.name || "")
-    setUsername(currentUser?.username || "")
-    setBio(currentUser?.bio || "")
-  }, [currentUser])
+    setCoverImage(fetchedUser?.coverImage || "")
+    setProfilePic(fetchedUser?.profileImage || "")
+    setName(fetchedUser?.name || "")
+    setUsername(fetchedUser?.username || "")
+    setBio(fetchedUser?.bio || "")
+  }, [fetchedUser])
 
   const onSubmit = async () => {
     setIsLoading(true)
     try {
-      await axios.patch(`/api/edit`, {
+      await axios.patch(`/api/edit/${fetchedUser?.id}`, {
         name,
         username,
         profileImage,
@@ -51,11 +50,10 @@ const EditModal = () => {
       setIsLoading(false)
     }
   }
-
   const bodyContent = (
     <div className="gap-4 flex flex-col" >
-      <ImageUpload value={profileImage} label="Upload Profile Image" disabled={isLoading} onChange={(image: string) => setProfilePic(image)} />
-      <ImageUpload value={coverImage} label="Upload Cover Image " disabled={isLoading} onChange={(image: string) => setCoverImage(image)} />
+      <ImageUpload value={coverImage} label="Upload cover Image" disabled={isLoading} onChange={(image: string) => setProfilePic(image)} />
+      <ImageUpload value={profileImage} label="Upload Profile Image " disabled={isLoading} onChange={(image: string) => setCoverImage(image)} />
       <Input type="text" value={name} onChange={(e) => setName(e.target.value)} />
       <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       <Input type="text" value={bio} onChange={(e) => setBio(e.target.value)} />

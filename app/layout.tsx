@@ -3,7 +3,7 @@ import { Barlow } from "next/font/google";
 import "./globals.css";
 import Provider from "@/components/Provider";
 import SideBar from "@/components/SideBar";
-import FollowBar from "@/components/FollowBar";
+import FollowBarItem from "@/components/FollowBarItem";
 import { Toaster } from "react-hot-toast";
 import ModalProvider from "@/components/ModalProvider";
 
@@ -33,9 +33,9 @@ export default function RootLayout({
             <Toaster />
             <ModalProvider/>
             <div className="container h-full flex mx-auto  max-w-6xl">
-              <div className="flex-1"><SideBar /></div>
-              <div className="flex-2 border-x border-neutral-800 ">{children}</div>
-              <div className="flex-1"><FollowBar /></div>
+              <div className="flex-2"><SideBar /></div>
+              <div className="flex-3 border-x border-neutral-800 ">{children}</div>
+              <div className="flex-2"><FollowBarItem /></div>
             </div>
           </main>
         </body>

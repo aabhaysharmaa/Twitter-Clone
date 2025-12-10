@@ -18,7 +18,7 @@ const UserHero = ({ userId }: UserHeroProps) => {
   return (
     <div className="bg-neutral-700 h-50 relative">
       <Image
-        src={user?.coverImage || "/images/5.jpeg"}
+        src={user?.coverImage || "/images/4.jpeg"}
         alt="Hero Image"
         fill
         className="object-cover"

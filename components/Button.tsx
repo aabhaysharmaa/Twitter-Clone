@@ -23,7 +23,7 @@ const Button = ({ label, secondary, fullWidth, outline, disabled, large, isLoadi
 			onClick={onClick}
 			className={clsx(`cursor-pointer outline-none border-0 font-semibold rounded-full transition hover:opacity-80 `, disabled && "opacity-70 cursor-not-allowed", fullWidth ? "w-full" : "w-fit", outline ? "border-white text-white" : secondary ? "bg-white text-black" : "bg-sky-500 border-white text-white", large ? "text-xl px-5 py-3" : "text-md px-4 py-2")}
 		>
-			{isLoading ? <LoaderCircle  className="animate-spin mx-auto text-black " /> :label}
+			{isLoading ? <LoaderCircle  className="animate-spin transition mx-auto text-black " /> :label}
 		</button>
 	)
 }

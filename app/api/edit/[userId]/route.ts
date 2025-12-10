@@ -1,17 +1,18 @@
-import { auth } from "@/auth";
+
 import prisma from "@/libs/prismaDB";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PATCH(req: NextRequest) {
+export async function PATCH(req: NextRequest, context: { params: Promise<{ userId: string }> }) {
 	try {
-		const session = await auth();
+		const params = await context.params;
+		const { userId } = params;
 		const body = await req.json();
-		const  { coverImage, username, name, profileImage, bio } = body
-		if (!session || !session?.user?.email) {
-			return NextResponse.json({ message: "Please Logged In To Update Profile" })
+		const { coverImage, username, name, profileImage, bio } = body
+		if (!userId) {
+			return NextResponse.json({ message: "User not Found" })
 		}
 		const user = await prisma.user.update({
-			where: { email: session?.user?.email },
+			where: { id :userId },
 			data: {
 				name,
 				username,

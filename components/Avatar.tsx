@@ -29,7 +29,7 @@ const Avatar = ({ userId, hasBorder, isLarge, isMid }: AvatarProps) => {
 		rounded-full  cursor-pointer
 		 relative
 		`} onClick={onClick}>
-			<Image src={user?.profileImage || "/images/6.jpeg"} alt="avatar" fill
+			<Image src={user?.profileImage || "/images/default.jpeg"} alt="avatar" fill
 				className=" object-cover rounded-full"
 			/>
 		</div>

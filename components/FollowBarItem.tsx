@@ -4,7 +4,7 @@
 import useUsers from "@/hooks/useUsers";
 import Avatar from "./Avatar";
 
-const FollowBar = () => {
+const FollowBarItem = () => {
 	const { data: users = [] } = useUsers();
 	if (users.length === 0) return null;
 	return (
@@ -27,4 +27,4 @@ const FollowBar = () => {
 	)
 }
 
-export default FollowBar
+export default FollowBarItem
