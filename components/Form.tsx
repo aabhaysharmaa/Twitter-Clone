@@ -2,10 +2,12 @@
 
 interface FormProps {
   postId?: string
+  placeholder: string
+  isComment?: boolean
 }
 
 
-const Form = ({ }: FormProps) => {
+const Form = ({ postId, placeholder, isComment }: FormProps) => {
   return (
     <div>Form</div>
   )

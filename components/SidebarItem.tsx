@@ -1,22 +1,33 @@
 "use client";
+
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import useLoginModal from "@/hooks/useLoginModal";
 import { usePathname, useRouter } from "next/navigation"
 import toast from "react-hot-toast";
 import { IconType } from "react-icons";
+
 interface SideBarItemProps {
 	href?: string
 	icon: IconType,
 	label: string
-	onClick?: () => void
+	onClick?: () => void,
+	isAuth?: boolean
 }
 
-const SideBarItem = ({ href, icon: Icon, label, onClick }: SideBarItemProps) => {
+const SideBarItem = ({ href, icon: Icon, label, onClick, isAuth }: SideBarItemProps) => {
+	const currentUser = useCurrentUser();
+	const loginModal = useLoginModal();
 	const router = useRouter();
 	const pathName = usePathname()
 	const handelClick = () => {
+
 		if (onClick) {
 			onClick()
 			toast.success("logOut")
-			return
+		}
+		if (isAuth && !currentUser) {
+			return loginModal.onOpen();
+
 		}
 		else {
 			router.push(href!)

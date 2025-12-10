@@ -24,17 +24,20 @@ const SideBar = () => {
     {
       label: "Home",
       href: "/",
-      icon: FaHouse
+      icon: FaHouse,
+      isAuth : false
     },
     {
       label: "Notifications",
       href: "/notifications",
-      icon: FaBell
+      icon: FaBell,
+      isAuth : true
     },
     {
       label: "Profile",
       href: "/profile",
-      icon: FaUser
+      icon: FaUser,
+      isAuth : true
     }
   ]
   return (
@@ -47,6 +50,7 @@ const SideBar = () => {
             href={item.href}
             label={item.label}
             icon={item.icon}
+            isAuth={item.isAuth}
           />
         ))}
         {isMobile && (
