@@ -13,13 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id               String          @id @default(auto()) @map("_id") @db.ObjectId
   name             String?
   username         String?         @unique
   bio              String?
-  hashedPassword    String?
+  hashedPassword   String?
   email            String          @unique
   emailVerified    DateTime?
   image            String?
@@ -29,7 +28,7 @@ model User {
   updatedAt        DateTime        @updatedAt
   followingIds     String[]        @db.ObjectId
   followerIds      String[]        @db.ObjectId
-  hasNotifications Boolean?
+  hasNotifications Boolean?        @default(false)
   posts            Post[]
   comment          comment[]
   notifications    Notifications[]
@@ -59,6 +58,7 @@ model Post {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   userId    String    @db.ObjectId
+  likeIds   String[]  @db.ObjectId
   user      User      @relation(fields: [userId], references: [id])
   comments  comment[]
 }

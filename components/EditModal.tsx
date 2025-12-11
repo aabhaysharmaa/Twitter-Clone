@@ -52,8 +52,8 @@ const EditModal = () => {
   }
   const bodyContent = (
     <div className="gap-4 flex flex-col" >
-      <ImageUpload value={coverImage} label="Upload cover Image" disabled={isLoading} onChange={(image: string) => setProfilePic(image)} />
-      <ImageUpload value={profileImage} label="Upload Profile Image " disabled={isLoading} onChange={(image: string) => setCoverImage(image)} />
+      <ImageUpload value={profileImage} label="Upload Profile Image" disabled={isLoading} onChange={(image: string) => setProfilePic(image)} />
+      <ImageUpload value={coverImage} label="Upload Cover Image " disabled={isLoading} onChange={(image: string) => setCoverImage(image)} />
       <Input type="text" value={name} onChange={(e) => setName(e.target.value)} />
       <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       <Input type="text" value={bio} onChange={(e) => setBio(e.target.value)} />

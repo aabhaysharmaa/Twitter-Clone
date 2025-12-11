@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
 
- import {LoaderCircle} from "lucide-react"
+import { LoaderCircle } from "lucide-react"
 
 interface ButtonProps {
 	label?: string;
@@ -12,18 +12,19 @@ interface ButtonProps {
 	large?: boolean;
 	isLoading?: boolean
 	onClick: () => void
+	className?: string
 }
 
 
 
-const Button = ({ label, secondary, fullWidth, outline, disabled, large, isLoading, onClick }: ButtonProps) => {
+const Button = ({ label, secondary, fullWidth, outline, disabled, large, isLoading, onClick, className }: ButtonProps) => {
 	return (
 		<button
 			disabled={disabled}
 			onClick={onClick}
-			className={clsx(`cursor-pointer outline-none border-0 font-semibold rounded-full transition hover:opacity-80 `, disabled && "opacity-70 cursor-not-allowed", fullWidth ? "w-full" : "w-fit", outline ? "border-white text-white" : secondary ? "bg-white text-black" : "bg-sky-500 border-white text-white", large ? "text-xl px-5 py-3" : "text-md px-4 py-2")}
+			className={clsx(`cursor-pointer outline-none border-0 font-semibold rounded-full transition hover:opacity-80  `, disabled && "opacity-70 cursor-not-allowed", fullWidth ? "w-full" : "w-fit", outline ? "border-white text-white" : secondary ? "bg-white text-black" : "bg-sky-500 border-white text-white", large ? "text-xl px-5 py-3" : "text-md px-4 py-2", className)}
 		>
-			{isLoading ? <LoaderCircle  className="animate-spin transition mx-auto text-black " /> :label}
+			{isLoading ? <LoaderCircle className={`animate-spin transition mx-auto text-black`} /> : label}
 		</button>
 	)
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 
@@ -12,7 +13,7 @@ const FollowBarItem = () => {
 			<div className="bg-neutral-800 rounded-lg  hidden max-w-[250px] lg:block p-4">
 				<h2 className="font-semibold  text-xl">Who to follow</h2>
 				<div className="gap-4 mt-4 flex flex-col">
-					{users.map((user) => (
+					{users.map((user : Record<string , any>) => (
 						<div className="flex flex-row gap-4" key={user.id}>
 							<Avatar userId={user.id} />
 							<div className="flex flex-col truncate">

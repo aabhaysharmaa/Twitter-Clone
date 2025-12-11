@@ -33,8 +33,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     })
   ],
   secret: process.env.AUTH_SECRET,
-  session: { strategy: "jwt" },
-  debug: process.env.NODE_ENV !== "production",
+  session: { strategy: "jwt" }
 })
 
 

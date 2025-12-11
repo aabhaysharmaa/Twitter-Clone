@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { format } from "date-fns";
 import useEditModal from "@/hooks/useEditModal";
 import useLoginModal from "@/hooks/useLoginModal";
-import UseFollow from "@/hooks/useFollow";
+import useFollow from "@/hooks/useFollow";
 interface UserBioProps {
 	userId: string
 }
@@ -14,7 +14,7 @@ interface UserBioProps {
 const UserBio = ({ userId }: UserBioProps) => {
 	const { data: currentUser } = useCurrentUser();
 	const { data: fetchedUser } = useUser(userId);
-	const { toggleFollow, isFollowing  } = UseFollow(userId);
+	const { toggleFollow, isFollowing } = useFollow(userId);
 	const editModal = useEditModal();
 	const loginModal = useLoginModal();
 	const createdAt = useMemo(() => {
@@ -27,7 +27,7 @@ const UserBio = ({ userId }: UserBioProps) => {
 			<div className="flex justify-end mx-4 my-4">
 				{fetchedUser?.id === currentUser?.id ? (
 					<Button label="Edit" secondary onClick={currentUser ? editModal?.onOpen : loginModal.onOpen} />
-				) : <Button label={isFollowing ? "unfollow" : "Follow"}  secondary={isFollowing} onClick={ toggleFollow} />}
+				) : <Button label={isFollowing ? "unfollow" : "Follow"} secondary={isFollowing} onClick={toggleFollow} />}
 			</div>
 			<div className="mt-8 px-4">
 				<p className="text-white text-2xl font-semibold">{fetchedUser?.name}</p>

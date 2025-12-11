@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
+    "@heroicons/react": "^2.2.0",
     "@prisma/client": "^5.22.0",
     "@types/axios": "^0.9.36",
     "axios": "^1.13.2",

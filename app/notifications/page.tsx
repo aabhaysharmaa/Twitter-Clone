@@ -1,12 +1,23 @@
+"use client";
+
 import Header from '@/components/Header'
-import React from 'react'
+import NotificationsFeed from '@/components/NotificationsFeed';
+import { useCurrentUser } from '@/hooks/useCurrentUser'
+import { redirect } from 'next/navigation';
+
+
 
 const Notifications = () => {
-  return (
-<>
-<Header label='Notifications' showBackArrow/>
+  const { data: session } = useCurrentUser();
+  if (!session) {
 
-</>
+    redirect("/")
+  }
+  return (
+    <>
+      <Header label='Notifications' showBackArrow />
+      <NotificationsFeed  />
+    </>
   )
 }
 

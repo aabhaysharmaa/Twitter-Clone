@@ -1,4 +1,4 @@
-"use client";
+"use client"; 
 
 import SidebarLogo from './SidebarLogo'
 import SideBarItem from './SidebarItem'
@@ -9,9 +9,14 @@ import { BiLogOut } from 'react-icons/bi';
 import { signOut } from 'next-auth/react';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useEffect, useState } from 'react';
+import useFollow from '@/hooks/useFollow';
+import useUser from '@/hooks/useUser';
 const SideBar = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false)
   const { data: currentUser } = useCurrentUser();
+  console.log("HasNotifications  : ", currentUser?.hasNotifications)
+  const { data: user } = useUser();
+  const {  toggleFollow } = useFollow(user?.id as string);
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
 
@@ -25,19 +30,21 @@ const SideBar = () => {
       label: "Home",
       href: "/",
       icon: FaHouse,
-      isAuth : false
+      isAuth: false
     },
     {
       label: "Notifications",
       href: "/notifications",
       icon: FaBell,
-      isAuth : true
+      isAuth: true,
+      alert: currentUser?.hasNotifications
+
     },
     {
       label: "Profile",
       href: "/profile",
       icon: FaUser,
-      isAuth : true
+      isAuth: true
     }
   ]
   return (
@@ -51,6 +58,7 @@ const SideBar = () => {
             label={item.label}
             icon={item.icon}
             isAuth={item.isAuth}
+            alert={item.alert}
           />
         ))}
         {isMobile && (
@@ -58,6 +66,7 @@ const SideBar = () => {
             label='Follow'
             icon={FaUserPlus}
             href='/follow'
+            handleFollowClick={toggleFollow}
           />
         )}
         {!!currentUser && (
@@ -73,4 +82,4 @@ const SideBar = () => {
   )
 }
 
-export default SideBar
+export default SideBar ;

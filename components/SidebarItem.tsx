@@ -2,41 +2,46 @@
 
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import useLoginModal from "@/hooks/useLoginModal";
+
 import { usePathname, useRouter } from "next/navigation"
 import toast from "react-hot-toast";
 import { IconType } from "react-icons";
+import { BsDot } from "react-icons/bs";
 
 interface SideBarItemProps {
 	href?: string
 	icon: IconType,
 	label: string
 	onClick?: () => void,
-	isAuth?: boolean
+	isAuth?: boolean,
+	handleFollowClick?: () => void;
+	alert?: boolean
 }
 
-const SideBarItem = ({ href, icon: Icon, label, onClick, isAuth }: SideBarItemProps) => {
+const SideBarItem = ({ href, icon: Icon, label, onClick, isAuth, alert }: SideBarItemProps) => {
 	const currentUser = useCurrentUser();
 	const loginModal = useLoginModal();
+
 	const router = useRouter();
 	const pathName = usePathname()
 	const handelClick = () => {
-
 		if (onClick) {
 			onClick()
 			toast.success("logOut")
 		}
 		if (isAuth && !currentUser) {
 			return loginModal.onOpen();
-
 		}
+
 		else {
 			router.push(href!)
 		}
 	}
 	return (
 		<div className="flex flex-col items-start" onClick={handelClick}>
-			<div className={`justify-center cursor-pointer  h-full items-center gap-4 hidden lg:flex rounded-full hover:bg-slate-200/10 p-4 ${pathName === href && "bg-slate-300/20"}`}>
-				<Icon size={24} />
+			<div className={`justify-center relative cursor-pointer  h-full items-center gap-4 hidden lg:flex rounded-full hover:bg-slate-200/10 p-4 ${pathName === href && "bg-slate-300/20"}`}>
+				<Icon size={24}  />
+				{alert ? <BsDot className="absolute left-0 -top-3  text-sky-300 " size={70}/> : null}
 				<p className="text-xl font-[30px] hidden lg:flex" >{label}</p>
 			</div>
 			{/* Mobile sidebar */}
