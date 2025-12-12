@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 			[...currentUser?.followingIds, userId]
 
 		const UpdatedFollowersIds = isFollowing ? targetUser.followerIds.filter(id => id !== currentUser?.id) :
-			[...currentUser?.followerIds, currentUser?.id]
+			[...targetUser?.followerIds, currentUser?.id]
 
 		const [updatedCurrentUser, updatedTargetUser] = await prisma.$transaction([
 			prisma.user.update({
