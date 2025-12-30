@@ -55,4 +55,5 @@ git clone https://github.com/your-username/social-media-clone.git
 cd twitter-clone
 npm install
 
-npm run dev // then open http://localhost:3000 fro seeing the results 
+npm run dev
+open http://localhost:3000 for seeing the results 
