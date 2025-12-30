@@ -54,3 +54,5 @@ A modern full-stack social media application built with **Next.js**, **Prisma OR
 git clone https://github.com/your-username/social-media-clone.git
 cd twitter-clone
 npm install
+
+npm run dev // then open http://localhost:3000 fro seeing the results 
